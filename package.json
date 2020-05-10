@@ -1,11 +1,11 @@
 {
-  "name": "stylelint-html-reporter",
-  "version": "0.0.3",
+  "name": "stylelint-html-reporter-stzhang",
+  "version": "1.0.0",
   "description": "HTML reporter for stylelint",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/scssyworks/stylelint-html-reporter.git"
+    "url": "git+https://github.com/stuartZhang/stylelint-html-reporter"
   },
   "keywords": [
     "stylelint",
@@ -13,15 +13,15 @@
     "html",
     "html-reporter",
     "stylelint-html-reporter",
-    "gulp",
-    "gulp-stylelint"
+    "webpack",
+    "stylelint-webpack-plugin"
   ],
-  "author": "scssyworks",
+  "author": "stuart_zhang",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/scssyworks/stylelint-html-reporter/issues"
+    "url": "https://github.com/stuartZhang/stylelint-html-reporter/issues"
   },
-  "homepage": "https://github.com/scssyworks/stylelint-html-reporter#readme",
+  "homepage": "https://github.com/stuartZhang/stylelint-html-reporter#readme",
   "dependencies": {
     "fs-extra": "^8.1.0",
     "stylelint-formatter-pretty": "^1.1.3"

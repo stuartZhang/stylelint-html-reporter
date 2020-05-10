@@ -1,3 +1,4 @@
+const path = require('path');
 module.exports = function (results) {
     if (Array.isArray(results)) {
         let baseHtml = `
@@ -12,7 +13,7 @@ module.exports = function (results) {
             body {
                 font-family: "Tahoma", Geneva, sans-serif;
                 color: #555;
-                width: 1600px;
+                width: 85%;
                 padding: 0 20px;
                 margin: auto;
             }
@@ -39,6 +40,9 @@ module.exports = function (results) {
             .error-list > div > span {
                 padding: 10px 20px;
             }
+            .error-list > div > span:not(:last-child) {
+                padding-right: 0;
+            }
             .error-list span {
                 display: inline-block;
                 color: #a31a1a;
@@ -51,22 +55,21 @@ module.exports = function (results) {
             }
             .error-list .rule {
                 color: #999;
-                width: 30%;
+                width: 27%;
             }
             .error-list .line {
-                width: 10%;
+                width: 15%;
             }
             .error-list .line span,
             .error-list .message {
                 font-weight: bold;
             }
             .error-list .message {
-                width: 60%;
+                width: 58%;
             }
             .error-list .message {
                 overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
+                word-break: break-all;
             }
             .summary-title,
             .error-summary {
@@ -154,9 +157,8 @@ module.exports = function (results) {
                     error: 0,
                     warning: 0
                 };
-            const filename = next.source.match(/\/([^\/]+(.scss|.sass)$)/) || [];
             detailedList.push({
-                filename: filename[1] || '',
+                filename: path.relative('.', next.source),
                 filesource: next.source,
                 errors,
                 warnings: next.warnings,
@@ -208,13 +210,16 @@ module.exports = function (results) {
         <ul class="details">
         ${detailedList.map(errorObj => `
         <li>
-        <div class="error-summary ${errorObj.errored ? 'errored' : 'valid'} clearfix"><span class="filename" title="${errorObj.filesource}">${errorObj.filename}</span><span class="error-count">Errors: <span>${errorObj.errors.error}</span></span><span class="warning-count">Warnings: <span>${errorObj.errors.warning}</span></span></div>
+        <div class="error-summary ${errorObj.errored ? 'errored' : 'valid'} clearfix"><!--
+        --><span class="filename" title="${errorObj.filesource}">${errorObj.filename}</span><!--
+        --><span class="error-count">Errors: <span>${errorObj.errors.error}</span></span><!--
+        --><span class="warning-count">Warnings: <span>${errorObj.errors.warning}</span></span></div>
         ${errorObj.warnings.length ? `<div class="error-list clearfix hidden">
             ${errorObj.warnings.map(warning => `
             <div class="${warning.severity} clearfix">
                 <span class="rule">[${warning.rule}]</span>
                 <span class="line">ln: <span>${warning.line}</span> col: <span>${warning.column}</span></span>
-                <span class="message" title="${warning.text.replace(/[\"]/g, '')}">${warning.text}</span>
+                <span class="message">${warning.text}</span>
             </div>
             `).join('\n\t')}
         </div>` : '<span class="no-error hidden">This file has no errors</span>'}
