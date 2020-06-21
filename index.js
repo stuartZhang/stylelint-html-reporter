@@ -8,7 +8,7 @@ const globalConfig = {
 
 const parser = results => {
     if (Array.isArray(results)) {
-        fs.ensureDir(path.basename(globalConfig.filename)).then(() => fs.writeFile(globalConfig.filename, createTemplate(results)));
+        fs.ensureDir(path.dirname(globalConfig.filename)).then(() => fs.writeFile(globalConfig.filename, createTemplate(results)));
         return inlineFormatter(results);
     }
     return '';
